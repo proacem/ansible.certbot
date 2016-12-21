@@ -1,6 +1,8 @@
-# Ansible Role: certbot
+# Ansible Role: Certbot
 
 ## Description
+
+Ansible role to install and configure letsencrypt with the certbot.
 
 ## Installation
 
