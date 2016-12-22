@@ -12,14 +12,11 @@ $ ansible-galaxy install sbaerlocher.certbot
 
 ## Requirements
 
-## Role Variables
-
-| Variable             | Default     | Comments (type)                                   |
-| :---                 | :---        | :---                                              |
-| | | |
-| | | |
+None
 
 ## Dependencies
+
+None
 
 ## Example Playbook
 
@@ -30,6 +27,10 @@ $ ansible-galaxy install sbaerlocher.certbot
 ```
 
 ## Changelog
+
+### 1.0
+
+* initial release
 
 ## Author
 

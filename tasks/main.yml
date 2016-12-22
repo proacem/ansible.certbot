@@ -1,2 +1,28 @@
 ---
 # tasks file for sbaerlocher.certbot
+
+- name: add OS specific variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "vars/{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml"
+    - "vars/{{ ansible_distribution }}.yml"
+    - "vars/{{ ansible_os_family }}.yml"
+    - "vars/defaults.yml"
+  tags:
+    - configuration
+    - packages
+
+- name: install certbot
+  package: 
+    name: certbot 
+    state: latest
+  tags:
+    - packages
+
+- name: add certbot cron
+  cron:
+    name: "certbot"
+    hour: "2"
+    job: "/usr/bin/certbot renew --quiet --no-self-upgrade"
+  tags:
+    - configuration
