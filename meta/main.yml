@@ -1,7 +1,7 @@
 galaxy_info:
-  author: your name
-  description: your description
-  company: your company (optional)
+  author: "Simon Bärlocher"
+  description: Ansible role to install and configure letsencrypt with the certbot.
+
 
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
@@ -14,7 +14,7 @@ galaxy_info:
   # - GPLv3
   # - Apache
   # - CC-BY
-  license: license (GPLv2, CC-BY, etc)
+  license: MIT
 
   min_ansible_version: 1.2
 
@@ -40,9 +40,9 @@ galaxy_info:
   #  - 5.8
   #  - 5.9
   #  - 6.0
-  #- name: Fedora
-  #  versions:
-  #  - all
+  - name: Fedora
+    versions:
+    - all
   #  - 16
   #  - 17
   #  - 18
@@ -103,9 +103,9 @@ galaxy_info:
   #  - 2013.09
   #  - 2016.03
   #  - 2016.09
-  #- name: ArchLinux
-  #  versions:
-  #  - all
+  - name: ArchLinux
+    versions:
+    - all
   #  - any
   #- name: FreeBSD
   #  versions:
@@ -156,9 +156,9 @@ galaxy_info:
   #  versions:
   #  - all
   #  - any
-  #- name: EL
-  #  versions:
-  #  - all
+  - name: EL
+    versions:
+    - all
   #  - 5
   #  - 6
   #  - 7
