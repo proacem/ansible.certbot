@@ -19,9 +19,9 @@
   tags:
     - packages
 
-- name: add certbot cron
+- name: add certbot renew cron
   cron:
-    name: "certbot"
+    name: "certbot renew"
     hour: "2"
     job: "/usr/bin/certbot renew --quiet --no-self-upgrade"
   tags:
