@@ -4,25 +4,30 @@
 - name: add OS specific variables
   include_vars: "{{ item }}"
   with_first_found:
-    - "vars/{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml"
-    - "vars/{{ ansible_distribution }}.yml"
-    - "vars/{{ ansible_os_family }}.yml"
-    - "vars/defaults.yml"
+    - files:
+        - "{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml"
+        - "{{ ansible_distribution }}.yml"
+        - "{{ ansible_os_family }}.yml"
+        - "defaults.yml"
+      paths:
+        -  "vars"
   tags:
     - configuration
     - packages
 
 - name: install certbot
   package: 
-    name: certbot 
+    name: "{{ certbot_package }}"
     state: latest
   tags:
     - packages
 
 - name: add certbot renew cron
   cron:
-    name: "certbot renew"
-    hour: "2"
+    name: Certbot automatic renewal.
     job: "/usr/bin/certbot renew --quiet --no-self-upgrade"
+    minute: "{{ certbot_auto_renew_minute }}"
+    hour: "{{ certbot_auto_renew_hour }}"
+    user: "{{ certbot_auto_renew_user }}"
   tags:
     - configuration
