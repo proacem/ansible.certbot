@@ -1,29 +1,34 @@
+---
+
 galaxy_info:
-  author: Simon Baelocher <sbaerlocher@sbaerlocher.ch>
+  author: "Simon Bärlocher"
   description: Ansible role to install and configure letsencrypt with the certbot.
-  license: MIT
-  min_ansible_version: 2.4
+  license: license (MIT)
+  min_ansible_version: 2.2
   platforms:
+    - name: Archlinux
+      versions:
+        - all
     - name: EL
       versions:
+        - 5
         - 6
-        - 7
     - name: Fedora
       versions:
-        - all
+        - 16
+        - 17
+        - 18
     - name: Ubuntu
       versions:
-        - all
+        - precise
+        - quantal
+        - raring
+        - saucy
     - name: Debian
       versions:
-        - all
-  galaxy_tags:
-    - networking
+        - wheezy
+  categories:
     - system
     - web
-    - certbot
-    - letsencrypt
-    - encryption
-    - certificates
-    - ssl
-    - https
+
+dependencies: []
