@@ -1,0 +1,7 @@
+---
+# tasks file for sbaerlocher.certbot
+
+- name: Add repository for Ubuntu
+  become: true
+  apt_repository:
+    repo: ppa:certbot/certbot

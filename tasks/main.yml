@@ -12,10 +12,23 @@
     - configuration
     - packages
 
+- name: Distribution | Include
+  include_tasks: "{{ item }}"
+  with_first_found:
+    - files:
+        - "{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml"
+        - "{{ ansible_distribution }}.yml"
+        - "{{ ansible_os_family }}.yml"
+        - "defaults.yml"
+      paths:
+        - "distribution"
+  tags:
+    - configuration
+    - packages
+
 - name: install certbot
-  package: 
-    name: certbot 
-    state: latest
+  package:
+    name: "{{ certbot_packages }}"
   tags:
     - packages
 
