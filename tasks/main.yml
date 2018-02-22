@@ -32,6 +32,12 @@
   tags:
     - packages
 
+- name: create directory {{ certbot_location }}
+  file:
+    path: "{{ certbot_location }}"
+    state: directory
+    mode: 0755
+
 - name: add certbot renew cron
   cron:
     name: "certbot renew"
@@ -39,3 +45,24 @@
     job: "/usr/bin/certbot renew --quiet --no-self-upgrade"
   tags:
     - configuration
+
+# Clouflare
+- block:
+
+    - name: install certbot DNS cloudflare
+      pip:
+        name: certbot-dns-cloudflare
+      tags:
+        - packages
+
+    - name: configure cloudflare.ini
+      copy:
+        content: |
+          dns_cloudflare_email = {{ certbot_cloudflare_email }}
+          dns_cloudflare_api_key = {{ certbot_cloudflare_api_key }}
+        dest: "{{ certbot_location }}/cloudflare.ini"
+        owner: "{{ certbot_permissions_owner }}"
+        group: "{{ certbot_permissions_group }}"
+        mode: "{{ certbot_permissions_mode }}"
+
+  when: certbot_cloudflare_email is defined and certbot_cloudflare_api_key is defined
