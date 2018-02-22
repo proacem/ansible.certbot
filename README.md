@@ -1,4 +1,5 @@
 # Ansible Role: Certbot
+
 [![Build Status](https://travis-ci.org/sbaerlocher/ansible.certbot.svg?branch=master)](https://travis-ci.org/sbaerlocher/ansible.certbot) [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://sbaerlo.ch/licence) [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-certbot-blue.svg)](https://galaxy.ansible.com/sbaerlocher/certbot)
 
 ## Description
@@ -15,6 +16,20 @@ ansible-galaxy install sbaerlocher.certbot
 
 None
 
+## Role Variables
+
+### Certbot cloudflare
+
+| Variable             | Default     | Comments (type)                                   |
+| :---                 | :---        | :---                                              |
+| certbot_location | /etc/letsencrypt | |
+| certbot_permissions_owner | root | |
+| certbot_permissions_group | root | |
+| certbot_permissions_mode | 0600 | |
+| certbot_binary_location | /usr/bin/certbot | |
+| certbot_cloudflare_email | | Cloudflare account variables (must be set) |
+| certbot_cloudflare_api_key | | Cloudflare account variables (must be set) |
+
 ## Dependencies
 
 None
@@ -28,6 +43,10 @@ None
 ```
 
 ## Changelog
+
+### 1.2
+
+* add Cloudflare DNS Support
 
 ### 1.1
 
@@ -48,4 +67,4 @@ This project is under the MIT License. See the [LICENSE](https://sbaerlo.ch/lice
 
 ## Copyright
 
-(c) 2016, Simon Bärlocher
+(c) 2018, Simon Bärlocher
