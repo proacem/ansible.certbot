@@ -64,5 +64,7 @@
         owner: "{{ certbot_permissions_owner }}"
         group: "{{ certbot_permissions_group }}"
         mode: "{{ certbot_permissions_mode }}"
+      tags:
+        - configuration
 
   when: certbot_cloudflare_email is defined and certbot_cloudflare_api_key is defined
