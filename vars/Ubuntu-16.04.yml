@@ -2,3 +2,5 @@
 # vars file for sbaerlocher.certbot
 
 certbot_package: letsencrypt
+certbot_cron:
+  job: '{{ certbot_bin}}/renew --quiet --no-self-upgrade'

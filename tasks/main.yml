@@ -1,69 +1,81 @@
 ---
 # tasks file for sbaerlocher.certbot
 
-- name: add OS specific variables
-  include_vars: "{{ item }}"
-  with_first_found:
-    - "vars/{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml"
-    - "vars/{{ ansible_distribution }}.yml"
-    - "vars/{{ ansible_os_family }}.yml"
-    - "vars/defaults.yml"
-  tags:
-    - configuration
-    - packages
-
-- name: Distribution | Include
-  include_tasks: "{{ item }}"
+- name: 'add OS specific variables'
+  include_vars: '{{ loop_vars }}'
   with_first_found:
     - files:
-        - "{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml"
-        - "{{ ansible_distribution }}.yml"
-        - "{{ ansible_os_family }}.yml"
-        - "defaults.yml"
+        - '{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml'
+        - '{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml'
+        - '{{ ansible_distribution }}.yml'
+        - '{{ ansible_os_family }}.yml'
+        - '{{ ansible_system }}.yml'
+        - 'defaults.yml'
       paths:
-        - "distribution"
+        - 'vars'
+  loop_control:
+    loop_var: loop_vars
   tags:
     - configuration
     - packages
 
-- name: install certbot
+- name: 'include distribution tasks'
+  include_tasks: '{{ loop_distribution }}'
+  with_first_found:
+    - files:
+        - '{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml'
+        - '{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml'
+        - '{{ ansible_distribution }}.yml'
+        - '{{ ansible_os_family }}.yml'
+        - '{{ ansible_system }}.yml'
+        - 'defaults.yml'
+      paths:
+        - 'distribution'
+  loop_control:
+    loop_var: loop_distribution
+  tags:
+    - configuration
+    - packages
+
+- name: 'install certbot'
   package:
-    name: "{{ certbot_packages }}"
+    name: '{{ certbot_packages }}'
   tags:
     - packages
 
-- name: create directory {{ certbot_location }}
+- name: 'create directory {{ certbot_location }}'
   file:
-    path: "{{ certbot_location }}"
+    path: '{{ certbot_location }}'
     state: directory
     mode: 0755
 
-- name: add certbot renew cron
+- name: 'add certbot renew cron'
   cron:
-    name: "certbot renew"
-    hour: "2"
-    job: "/usr/bin/certbot renew --quiet --no-self-upgrade"
+    name: 'certbot renew'
+    hour: '2'
+    job: '{{ certbot_cron }}'
+  when: certbot_cron
   tags:
     - configuration
 
 # Clouflare
 - block:
 
-    - name: install certbot DNS cloudflare
+    - name: 'install certbot DNS cloudflare'
       pip:
         name: certbot-dns-cloudflare
       tags:
         - packages
 
-    - name: configure cloudflare.ini
+    - name: 'configure cloudflare.ini'
       copy:
         content: |
           dns_cloudflare_email = {{ certbot_cloudflare_email }}
           dns_cloudflare_api_key = {{ certbot_cloudflare_api_key }}
-        dest: "{{ certbot_location }}/cloudflare.ini"
-        owner: "{{ certbot_permissions_owner }}"
-        group: "{{ certbot_permissions_group }}"
-        mode: "{{ certbot_permissions_mode }}"
+        dest: '{{ certbot_location }}/cloudflare.ini'
+        owner: '{{ certbot_permissions_owner }}'
+        group: '{{ certbot_permissions_group }}'
+        mode: '{{ certbot_permissions_mode }}'
       tags:
         - configuration
 
