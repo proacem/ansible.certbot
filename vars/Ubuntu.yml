@@ -2,3 +2,5 @@
 # vars file for sbaerlocher.certbot
 
 certbot_packages: python-certbot-nginx
+certbot_cron:
+  job: '{{ certbot_bin}}/renew --quiet --no-self-upgrade'

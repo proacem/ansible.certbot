@@ -22,13 +22,14 @@ None
 
 | Variable             | Default     | Comments (type)                                   |
 | :---                 | :---        | :---                                              |
+| certbot_binary_location | /usr/bin/certbot | |
+| certbot_cron | false | creates an own cronjob for certbot |
 | certbot_location | /etc/letsencrypt | |
-| certbot_permissions_owner | root | |
 | certbot_permissions_group | root | |
 | certbot_permissions_mode | 0600 | |
-| certbot_binary_location | /usr/bin/certbot | |
-| certbot_cloudflare_email | | Cloudflare account variables (must be set) |
+| certbot_permissions_owner | root | |
 | certbot_cloudflare_api_key | | Cloudflare account variables (must be set) |
+| certbot_cloudflare_email | | Cloudflare account variables (must be set) |
 
 ## Dependencies
 
