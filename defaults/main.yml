@@ -2,7 +2,7 @@
 # defaults file for sbaerlocher.certbot
 
 certbot_bin: /usr/bin/certbot
-certbot_cron: false
+certbot_cron_enable: false
 certbot_location: /etc/letsencrypt
 certbot_permissions_group: root
 certbot_permissions_owner: root
