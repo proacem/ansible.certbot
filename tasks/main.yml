@@ -53,8 +53,8 @@
   cron:
     name: 'certbot renew'
     hour: '2'
-    job: '{{ certbot_cron }}'
-  when: certbot_cron
+    job: '{{ certbot_cron.job }}'
+  when: certbot_cron_enable
   tags:
     - configuration
 
